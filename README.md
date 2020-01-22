@@ -1,4 +1,6 @@
 # SplineSystem-Unity
 
+## Working
 Implemented Density based (Working)
-Currently deriving for DistanceBased 
+## WIP
+Currently deriving expression for DistanceBased 
