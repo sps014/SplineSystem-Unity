@@ -23,16 +23,22 @@ public class testSpline : MonoBehaviour
             brain = new SplineBrain();
 
         brain.Positions = getPos();
-        brain.IsLoop = true;
+        brain.SubDivisionType = DivisionType.DistanceBased;
+        //brain.IsLoop = true;
         brain.Resolution = 0.1f;
         var points = brain.Compute();
         
         for (int i = 0; i < points.Length; i++)
         {
-            if (i == points.Length - 1)
-                Gizmos.DrawLine(points[i].Position, points[0].Position);
-            else
+            Gizmos.color = Color.red;
+            //if (i == points.Length - 1)
+            //    Gizmos.DrawLine(points[i].Position, points[0].Position);
+            if(i!=points.Length-1)
                 Gizmos.DrawLine(points[i].Position, points[i + 1].Position);
+            Gizmos.color = Color.green;
+            Vector3 vec = Vector3.Cross( points[i].Position+points[i].Tangent.normalized, points[i].Position);
+            //vec = vec.normalized;
+            Gizmos.DrawLine(vec, points[i].Position);
         }
     }
     Vector3[] getPos()
@@ -40,11 +46,12 @@ public class testSpline : MonoBehaviour
         List<Vector3> pt = new List<Vector3>();
         foreach (var item in array)
         {
+            Gizmos.DrawSphere(item.position, 5);
             pt.Add(item.position);
         }
-        //pt.Insert(0, array[0].position);
-        //pt.Add(array.Last().position);
+
+        pt.Insert(0, array[0].position);
+        pt.Add(array.Last().position);
         return pt.ToArray();
     }
 }
-
