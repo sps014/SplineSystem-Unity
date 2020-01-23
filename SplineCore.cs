@@ -10,7 +10,7 @@ namespace SplineSystem
 		public bool IsLoop { get; set; }
 		public DivisionType SubDivisionType { get; set; } = DivisionType.DensityBased;
 		public float Resolution { get; set; } = 0.2f;
-		public float DistanceOffset { get; set; } = 1.75f;
+		public float DistanceOffset { get; set; } = 4;
 
 		private List<SonicPoint> Points { get; set; } = new List<SonicPoint>();
 		private float OffsetTrack { get; set; } = 0;
@@ -49,14 +49,17 @@ namespace SplineSystem
 
 			float distance = Vector3.Distance(p1, p2);
 			distance += OffsetTrack;
-
-			for (int i =0; i < distance/DistanceOffset; i++)
+			int tis=(int)(distance/DistanceOffset);
+			for (int i =0; i <= tis; i++)
 			{
 				//Which t position are we at?
-				float t = i * DistanceOffset/distance;
+                float t=(i*DistanceOffset-OffsetTrack)/distance;
 
-				if (i == distance / DistanceOffset)
-					OffsetTrack = distance - i * (int)(distance / DistanceOffset);
+				if(t<0)
+                    continue;
+
+				if (i == tis)
+					OffsetTrack = distance - i * DistanceOffset;
 
 				//Find the coordinate between the end points with a Catmull-Rom spline
 				SonicPoint point = GetCatmullPoint(t, p0, p1, p2, p3);
