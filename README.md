@@ -3,4 +3,4 @@
 ## Working
 Implemented Density based
 ## WIP
-Currently deriving expression for DistanceBased 
+DistanceBased need some bug fixes
