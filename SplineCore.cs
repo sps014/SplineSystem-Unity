@@ -49,7 +49,10 @@ namespace SplineSystem
 
 			float distance = Vector3.Distance(p1, p2);
 			distance += OffsetTrack;
+
+			//total division needed
 			int tis=(int)(distance/DistanceOffset);
+
 			for (int i =0; i <= tis; i++)
 			{
 				//Which t position are we at?
