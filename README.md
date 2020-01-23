@@ -3,4 +3,6 @@
 ## Working
 Implemented Density based
 ## WIP
-DistanceBased need some bug fixes
+DistanceBased implemented but need some bug fixes
+Normals of vector 
+
