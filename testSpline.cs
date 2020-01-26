@@ -5,10 +5,10 @@ using System.Linq;
 public class testSpline : MonoBehaviour
 {
     public Transform[] array;
-    SplineBrain brain;
+    SplineCore brain;
     void Start()
     {
-        brain = new SplineBrain();
+        brain = new SplineCore();
     }
     void Update()
     {
@@ -18,11 +18,11 @@ public class testSpline : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (brain == null)
-            brain = new SplineBrain();
+            brain = new SplineCore();
 
         brain.Positions = getPos();
         brain.SubDivisionType = DivisionType.DistanceBased;
-        brain.IsLoop = true;
+        //brain.IsLoop = true;
         brain.DistanceOffset = 20;
         brain.Resolution = 0.1f;
         var points = brain.Compute();
@@ -35,13 +35,25 @@ public class testSpline : MonoBehaviour
             if(i!=points.Length-1)
                 Gizmos.DrawLine(points[i].Position, points[i + 1].Position);
             Gizmos.color = Color.green;
-            Vector3 vec = Vector3.Cross(points[i].Tangent.normalized, points[i].Position.normalized);
+            Vector3 vec = Vector3.Cross(points[i].Position, Vector3.up+points[i].Position);
             vec = vec.normalized;
             //if (vec.y < points[i].Position.y)
              //   vec = -1 * vec;
-            vec = Quaternion.AngleAxis(-90, Vector3.up) * vec;
+            //vec = Quaternion.AngleAxis(-90, Vector3.up) * vec;
 
-            Gizmos.DrawLine(vec*15+points[i].Position, points[i].Position);
+            //Gizmos.DrawLine(points[i].GetTangent(10), points[i].Position);
+            //Gizmos.color = Color.blue;
+            Gizmos.DrawLine(points[i].GetLeft(20), points[i].Position);
+            Gizmos.DrawLine(points[i].GetRight(20), points[i].Position);
+            if (i != 0)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(points[i].GetRight(20), points[i-1].GetRight(20));
+                Gizmos.DrawLine(points[i].GetLeft(20), points[i - 1].GetLeft(20));
+
+            }
+
+
             //if(i!=points.Length-1)
             //Debug.Log(Vector3.Distance(points[i].Position, points[i + 1].Position));
         }
@@ -55,8 +67,8 @@ public class testSpline : MonoBehaviour
             pt.Add(item.position);
         }
 
-        //pt.Insert(0, array[0].position);
-        //pt.Add(array.Last().position);
+        pt.Insert(0, array[0].position);
+        pt.Add(array.Last().position);
         return pt.ToArray();
     }
 }

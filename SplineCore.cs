@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SplineSystem
 {
-	public class SplineBrain
+	public class SplineCore
 	{
 		public Vector3[] Positions { get; set; }
 		public bool IsLoop { get; set; }
@@ -140,7 +140,8 @@ namespace SplineSystem
 
 			//The cubic polynomial: a + b * t + c * t^2 + d * t^3
 			Vector3 pos = 0.5f * (a + (b * t) + (c * t * t) + (d * t * t * t));
-			Vector3 tan = 0.5f * (a + (b) + 2*(c * t) + 3*(d * t * t));
+			Vector3 tan = 0.5f * ((b) + 2*(c * t) + 3*(d * t * t));
+			
 
 			SonicPoint point = new SonicPoint();
 			point.Position = pos;
