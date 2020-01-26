@@ -1,9 +1,9 @@
 # SplineSystem-Unity
 
 ## Working
-Implemented Density based Spline
-Implemented Distanced based Spline
-Tangent Vector
+1. Implemented Density based Spline
+2. Implemented Distanced based Spline
+3. Tangent Vector
 ## WIP
 2. Normals of vector 
 
