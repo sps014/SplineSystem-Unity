@@ -11,7 +11,7 @@ namespace SplineSystem
 		public DivisionType SubDivisionType { get; set; } = DivisionType.DensityBased;
 		public float Resolution { get; set; } = 0.2f;
 		public float DistanceOffset { get; set; } = 4;
-
+		public int MaxDistanceLimit { get; set; } = 5000;
 		private List<SonicPoint> Points { get; set; } = new List<SonicPoint>();
 		private float OffsetTrack { get; set; } = 0;
 		public SonicPoint[] Compute()
@@ -48,26 +48,46 @@ namespace SplineSystem
 			Vector3 p3 = Positions[ClampIndex(ind + 2)];
 
 			float distance = Vector3.Distance(p1, p2);
-			distance += OffsetTrack;
+			if(distance>MaxDistanceLimit)
+			{
+				Debug.LogWarning("please add more points rather than long distance , max allowed distance is between 2 nodes is:" + MaxDistanceLimit);
+				return;
+			}
 
 			//total division needed
 			int tis=(int)(distance/DistanceOffset);
 
-			for (int i =0; i <= tis; i++)
+			for (float j = OffsetTrack; j <= distance; j += DistanceOffset)
 			{
-				//Which t position are we at?
-                float t=(i*DistanceOffset-OffsetTrack)/distance;
+				float t = (j) / (distance);
+				if (t < 0 || t > 1)
+					continue;
 
-				if(t<0)
-                    continue;
+				if (j > distance - DistanceOffset)
+				{
+					OffsetTrack = DistanceOffset - (distance - (j));
+				}
 
-				if (i == tis)
-					OffsetTrack = distance - i * DistanceOffset;
-
-				//Find the coordinate between the end points with a Catmull-Rom spline
 				SonicPoint point = GetCatmullPoint(t, p0, p1, p2, p3);
 				Points.Add(point);
+
 			}
+
+			//for (int i =0; i <= tis; i++)
+			//{
+			//	//Which t position are we at?
+   //             float t=(i*DistanceOffset-OffsetTrack)/distance;
+
+			//	if(t<0)
+   //                 continue;
+
+			//	if (i == tis)
+			//		OffsetTrack = distance - i * DistanceOffset;
+
+			//	//Find the coordinate between the end points with a Catmull-Rom spline
+			//	SonicPoint point = GetCatmullPoint(t, p0, p1, p2, p3);
+			//	Points.Add(point);
+			//}
 
 		}
 		private void ComputeDensity(int ind)

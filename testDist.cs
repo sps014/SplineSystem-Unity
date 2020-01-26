@@ -27,17 +27,17 @@ public class testDist : MonoBehaviour
             if(array[i]!=array.Last())
             {
                 Gizmos.DrawLine(array[i].position, array[i + 1].position);
-                var dist=Vector3.Distance(array[i].position,array[i+1].position)+calcoffset;
+                var dist=Vector3.Distance(array[i].position,array[i+1].position);
                 int tis=(int)(dist/offset);
-                for (int j = 0; j <= tis; j++)
+                for (float j = calcoffset; j <= dist; j+=offset)
                 {
-                    float t=(j*offset-calcoffset)/dist;
-                    if(t<0)
+                    float t=(j)/(dist);
+                    if(t<0||t>1)
                         continue;
                     
-                    if(j==tis)
+                    if(j>dist-offset)
                     {
-                        calcoffset=dist-(j*offset);
+                        calcoffset=offset-(dist-(j));
                     }
                     Gizmos.DrawSphere(Vector3.Lerp(array[i].position,array[i+1].position,t),3);
                     

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using SplineSystem;
 using System.Linq;
-
 public class testSpline : MonoBehaviour
 {
     public Transform[] array;
@@ -25,7 +23,7 @@ public class testSpline : MonoBehaviour
         brain.Positions = getPos();
         brain.SubDivisionType = DivisionType.DistanceBased;
         //brain.IsLoop = true;
-        brain.DistanceOffset = 4;
+        brain.DistanceOffset = 6;
         brain.Resolution = 0.1f;
         var points = brain.Compute();
         
@@ -41,7 +39,7 @@ public class testSpline : MonoBehaviour
             vec = vec.normalized;
             //if (vec.y < points[i].Position.y)
              //   vec = -1 * vec;
-            vec = Quaternion.AngleAxis(-90, Vector3.right) * vec;
+            vec = Quaternion.AngleAxis(-90, Vector3.up) * vec;
 
             Gizmos.DrawLine(vec*15+points[i].Position, points[i].Position);
             //if(i!=points.Length-1)
