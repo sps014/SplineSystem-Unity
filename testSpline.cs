@@ -52,6 +52,8 @@ public class testSpline : MonoBehaviour
                 Gizmos.DrawLine(points[i].GetLeft(20), points[i - 1].GetLeft(20));
 
             }
+            Gizmos.color = Color.yellow;
+            //Gizmos.DrawLine(points[i].Position,points[i].Normal);
 
 
             //if(i!=points.Length-1)

@@ -11,7 +11,7 @@ namespace SplineSystem
 		public DivisionType SubDivisionType { get; set; } = DivisionType.DensityBased;
 		public float Resolution { get; set; } = 0.2f;
 		public float DistanceOffset { get; set; } = 4;
-		public int MaxDistanceLimit { get; set; } = 5000;
+		public int MaxDistanceLimit { get; set; } = 10000;
 		private List<SonicPoint> Points { get; set; } = new List<SonicPoint>();
 		private float OffsetTrack { get; set; } = 0;
 		public SonicPoint[] Compute()
@@ -70,22 +70,6 @@ namespace SplineSystem
 
 			}
 
-			//for (int i =0; i <= tis; i++)
-			//{
-			//	//Which t position are we at?
-   //             float t=(i*DistanceOffset-OffsetTrack)/distance;
-
-			//	if(t<0)
-   //                 continue;
-
-			//	if (i == tis)
-			//		OffsetTrack = distance - i * DistanceOffset;
-
-			//	//Find the coordinate between the end points with a Catmull-Rom spline
-			//	SonicPoint point = GetCatmullPoint(t, p0, p1, p2, p3);
-			//	Points.Add(point);
-			//}
-
 		}
 		private void ComputeDensity(int ind)
 		{
@@ -95,7 +79,6 @@ namespace SplineSystem
 			Vector3 p2 = Positions[ClampIndex(ind + 1)];
 			Vector3 p3 = Positions[ClampIndex(ind + 2)];
 
-			//The spline's resolution
 
 			//How many times should we loop?
 			int loops = Mathf.FloorToInt(1f/Resolution);
@@ -110,7 +93,6 @@ namespace SplineSystem
 				Points.Add(point);
 			}
 		}
-
 		private int ClampIndex(int pos)
 		{
 			if (pos < 0)
@@ -129,7 +111,6 @@ namespace SplineSystem
 
 			return pos;
 		}
-
 		SonicPoint GetCatmullPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
 		{
 			//The coefficients of the cubic polynomial (except the 0.5f * which I added later for performance)
