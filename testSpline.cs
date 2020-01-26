@@ -22,8 +22,8 @@ public class testSpline : MonoBehaviour
 
         brain.Positions = getPos();
         brain.SubDivisionType = DivisionType.DistanceBased;
-        //brain.IsLoop = true;
-        brain.DistanceOffset = 6;
+        brain.IsLoop = true;
+        brain.DistanceOffset = 20;
         brain.Resolution = 0.1f;
         var points = brain.Compute();
         
@@ -55,8 +55,8 @@ public class testSpline : MonoBehaviour
             pt.Add(item.position);
         }
 
-        pt.Insert(0, array[0].position);
-        pt.Add(array.Last().position);
+        //pt.Insert(0, array[0].position);
+        //pt.Add(array.Last().position);
         return pt.ToArray();
     }
 }

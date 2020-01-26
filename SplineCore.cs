@@ -54,9 +54,6 @@ namespace SplineSystem
 				return;
 			}
 
-			//total division needed
-			int tis=(int)(distance/DistanceOffset);
-
 			for (float j = OffsetTrack; j <= distance; j += DistanceOffset)
 			{
 				float t = (j) / (distance);
@@ -65,7 +62,7 @@ namespace SplineSystem
 
 				if (j > distance - DistanceOffset)
 				{
-					OffsetTrack = DistanceOffset - (distance - (j));
+					OffsetTrack = DistanceOffset - (distance - j);
 				}
 
 				SonicPoint point = GetCatmullPoint(t, p0, p1, p2, p3);
