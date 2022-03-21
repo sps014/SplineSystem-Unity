@@ -6,7 +6,7 @@
 3. Tangent Vector
 4. Left Right Normal Excludable Vector
 
-## WIP Screenshots
+## Screenshots
 
 ![progress](https://user-images.githubusercontent.com/45932883/73134108-950a4780-4058-11ea-85e9-08d08ca40338.PNG)
 
